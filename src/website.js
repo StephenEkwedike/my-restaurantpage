@@ -3,69 +3,69 @@ import loadMenu from './menu';
 import loadStaff from './staff';
 import './style.css';
 
-
 const content = document.createElement('div')
 content.setAttribute('id', 'content')
 document.body.appendChild(content)
 
 function createNav(){
+    const navBar = document.createElement('div');
+    const homebtn = document.createElement('button');
+    const menubtn = document.createElement('button');
+    const staffbtn = document.createElement('button');
 
-const navBar = document.createElement('div');
-const homebtn = document.createElement('button');
-const menubtn = document.createElement('button');
-const staffbtn = document.createElement('button');
+    homebtn.textContent = 'Home';
+    menubtn.textContent = 'Menu';
+    staffbtn.textContent = 'Staff';
 
-homebtn.textContent = 'Home';
-menubtn.textContent = 'Menu';
-staffbtn.textContent = 'Staff';
+    homebtn.setAttribute('id', 'homebtn');
+    menubtn.setAttribute('id', 'menubtn');
+    staffbtn.setAttribute('id', 'staffbtn');
 
-homebtn.setAttribute('id', 'homebtn');
-menubtn.setAttribute('id', 'menubtn');
-staffbtn.setAttribute('id', 'staffbtn');
+    navBar.appendChild(homebtn);
+    navBar.appendChild(menubtn);
+    navBar.appendChild(staffbtn);
 
-navBar.appendChild(homebtn);
-navBar.appendChild(menubtn);
-navBar.appendChild(staffbtn);
+    navBar.setAttribute('id', 'header')
 
-navBar.setAttribute('id', 'header')
-
-
-function loadPage(elem){
-    console.log(elem, elem.id)
-    switch(elem.id){
-        case 'homebtn':
-            console.log("home")
-            loadHome();
-            setActiveButton(elem);
-            // set
-            break;
-        case 'menubtn':
-            console.log("menu")
-            loadMenu();
-            setActiveButton(elem);
-            break;
-        case 'staffbtn':
-            console.log('staff')
-            loadStaff();
-            setActiveButton(elem);
-            break;
+    function setActiveButton(button){
+        buttons.forEach(btn=>{
+            if (btn!== button){
+                btn.classList.remove('activebtn')
+            }
+            button.classList.add('activebtn')
+        });
     }
-
-}
-const buttons = document.querySelectorAll('button')
-function setActiveButton(button){
-    buttons.forEach(btn=>{
-        if (btn!== button){
-            btn.classList.remove('activebtn')
+    
+    function loadPage(elem){
+        console.log(elem, elem.id)
+        switch(elem.id){
+            case 'homebtn':
+                console.log("home")
+                loadHome();
+                setActiveButton(elem);
+                // set
+                break;
+            case 'menubtn':
+                console.log("menu")
+                loadMenu();
+                setActiveButton(elem);
+                break;
+            case 'staffbtn':
+                console.log('staff')
+                loadStaff();
+                setActiveButton(elem);
+                break;
         }
-        button.classList.add('activebtn')
-    })
-}
-buttons.forEach(button => button.addEventListener('click', (e)=>{
-    loadPage(e.target)
-}))
 
-return navBar
+    }
+    const buttons = navBar.querySelectorAll('button') //changed from onst buttons = document.querySelectorAll('button')
+    console.log(buttons);
+    
+    buttons.forEach(button => button.addEventListener('click', (e)=>{
+        loadPage(e.target)
+    }))
+
+    return navBar
 }
 
 
